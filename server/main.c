@@ -53,12 +53,28 @@ int wait_connect(int sockfd)
     return c_sockfd;
 }
 
+char* create_http_head()
+{
+    char buf[SIZE];
+
+    sprintf(buf, "HTTP/1.1 200 OK\r\n");
+    sprintf(buf, "%sServer: Cheeko/0.0.1 (Linux)\r\n", buf);
+    sprintf(buf, "%sContent-Type: text/html\r\n", buf);
+    printf("%s\n", buf);
+
+printf("%p\n", buf);
+    return buf;
+}
+
 void work(int sockfd, int c_sockfd)
 {
     char buf[SIZE];
     int ret = 0;
     int i = 0;
+    char* http_head = NULL;
 
+    printf("%p\n", create_http_head());
+    printf("%s\n", http_head);
     while(1)
     {
         ret = read(c_sockfd, buf, SIZE - 1);
